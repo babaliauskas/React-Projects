@@ -60,7 +60,7 @@ const mapDispatchProps = dispatch => {
     onStoreResult: result =>
       dispatch(actionCreators.storeResult(result)),
     onDeleteResult: id =>
-      dispatch(actionCreators.deleteRresult(id))
+      dispatch(actionCreators.deleteResult(id))
   };
 };
 
