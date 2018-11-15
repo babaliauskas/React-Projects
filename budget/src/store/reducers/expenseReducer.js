@@ -1,48 +1,41 @@
+import * as actionTypes from '../actions/actionTypes';
 
-// const initialState = {
-//   expense: [
-//     {
-//       id: 'asdf',
-//       description: 'January Rent',
-//       note: 'This was tje final payment',
-//       amount: 54500,
-//       createdAt: 0
-//     }
-//   ]}
-
+const { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE } = actionTypes;
 const initialState = [];
+
+const addExpense = (state, action) => {
+  return [...state, action.expense];
+};
+
+const removeExpense = (state, action) => {
+  return state.filter(({ id }) => id !== action.id);
+};
+
+const editExpense = (state, action) => {
+  return state.map(expense => {
+    if (expense.id === action.id) {
+      return {
+        ...expense,
+        ...action.updates
+      };
+    } else {
+      return expense;
+    }
+  });
+};
 
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_EXPENSE':
-      return [...state, action.expense];
-    case 'REMOVE_EXPENSE':
-      return state.filter(({ id }) => id !== action.id); // destructured expense.id
-    case 'EDIT_EXPENSE':
-      return state.map(expense => {
-        if (expense.id === action.id) {
-          return {
-            ...expense,
-            ...action.updates
-          };
-        } else {
-          return expense;
-        }
-      });
+    case ADD_EXPENSE:
+      return addExpense(state, action);
+    case REMOVE_EXPENSE:
+      return removeExpense(state, action);
+    case EDIT_EXPENSE:
+      return editExpense(state, action);
     default:
       return state;
   }
 };
-
-
-
-
-
-
-
-
-
-
 
 // const store = createStore(combineReducers({ filtersReducer, expenseReducer }));
 
