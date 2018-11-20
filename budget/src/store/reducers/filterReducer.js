@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import moment from 'moment'
 
 const {
   SET_TEXT_FILTER,
@@ -10,9 +11,9 @@ const {
 
 const initialState = {
   text: '',
-  sortBy: 'amount', // date or amount
-  startDate: undefined,
-  endDate: undefined
+  sortBy: 'amount', 
+  startDate: moment().startOf('month'),
+  endDate: moment().endOf('month')
 };
 
 const setTextFilter = (state, action) => {

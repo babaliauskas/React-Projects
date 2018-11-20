@@ -13,6 +13,7 @@ import { addExpense } from './store/actions/expenseActions';
 import { setTextFilter } from './store/actions/filterActions';
 import getVisibleExpenses from './store/selectors/expensesSelector';
 
+
 const composeEnhancers =
   process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
