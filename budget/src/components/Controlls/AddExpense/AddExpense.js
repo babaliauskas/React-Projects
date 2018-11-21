@@ -8,11 +8,13 @@ const AddExpense = props => (
   <div>
     <h1>Add Expense</h1>
     <ExpenseForm onSubmit={expense => {
-      console.log(expense)
-      props.dispatch(actions.addExpense(expense));
+      props.onAddExpense(expense)
       props.history.push('/')
     }} />
   </div>
 );
 
-export default connect()(AddExpense);
+const mapDispatchToProps = dispatch => ({
+  onAddExpense: expense => dispatch(actions.addExpense(expense))
+})
+export default connect(null, mapDispatchToProps)(AddExpense);
