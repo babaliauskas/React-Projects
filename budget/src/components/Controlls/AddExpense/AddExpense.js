@@ -7,14 +7,19 @@ import * as actions from '../../../store/actions/index';
 const AddExpense = props => (
   <div>
     <h1>Add Expense</h1>
-    <ExpenseForm onSubmit={expense => {
-      props.onAddExpense(expense)
-      props.history.push('/')
-    }} />
+    <ExpenseForm
+      onSubmit={expense => {
+        props.onAddExpense(expense);
+        props.history.push('/');
+      }}
+    />
   </div>
 );
 
 const mapDispatchToProps = dispatch => ({
-  onAddExpense: expense => dispatch(actions.addExpense(expense))
-})
-export default connect(null, mapDispatchToProps)(AddExpense);
+  onAddExpense: expense => dispatch(actions.startAddExpense(expense))
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddExpense);

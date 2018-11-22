@@ -1,4 +1,9 @@
-export { addExpense, removeExpense, editExpense } from './expenseActions';
+export {
+  startAddExpense,
+  removeExpense,
+  editExpense,
+  addExpense
+} from './expenseActions';
 export {
   setTextFilter,
   sortByAmount,
