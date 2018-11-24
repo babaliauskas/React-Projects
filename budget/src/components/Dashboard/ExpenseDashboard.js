@@ -1,15 +1,39 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import ExpenseList from '../ExpenseList/EpenseList'
-import ExpenseListFilters from '../Controlls/ExpenseListFilters/ExpenseListFilters'
-import ExpensesSummary from '../ExpenseSummary/ExpenseSummary'
+import ExpenseList from '../ExpenseList/EpenseList';
+import ExpenseListFilters from '../Controlls/ExpenseListFilters/ExpenseListFilters';
+import ExpensesSummary from '../ExpenseSummary/ExpenseSummary';
+import * as actions from '../../store/actions/index';
 
-const ExpenseDashboard = () => (
-    <div>
+class ExpenseDashboard extends React.Component {
+  state = {
+    loading: false
+  };
+  componentDidMount() {
+    this.props.onStartSetExpenses();
+    this.setState({ loading: true });
+  }
+  render() {
+    let display = <p>Loading...</p>;
+    if (this.state.loading) {
+      display = <ExpenseList />;
+    }
+    return (
+      <div>
         <ExpensesSummary />
         <ExpenseListFilters />
-        <ExpenseList />
-    </div>
-);
+        {display}
+      </div>
+    );
+  }
+}
 
-export default ExpenseDashboard
+const mapDispatchToProps = dispatch => ({
+  onStartSetExpenses: () => dispatch(actions.startSetExpense())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ExpenseDashboard);

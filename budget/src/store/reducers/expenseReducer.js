@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-const { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE } = actionTypes;
+const { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE, SET_EXPENSES } = actionTypes;
 const initialState = [];
 
 const addExpense = (state, action) => {
@@ -24,6 +24,10 @@ const editExpense = (state, action) => {
   });
 };
 
+const setExpenses = (state, action) => {
+  return action.expenses;
+};
+
 const expenseReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_EXPENSE:
@@ -32,6 +36,8 @@ const expenseReducer = (state = initialState, action) => {
       return removeExpense(state, action);
     case EDIT_EXPENSE:
       return editExpense(state, action);
+    case SET_EXPENSES:
+      return setExpenses(state, action);
     default:
       return state;
   }

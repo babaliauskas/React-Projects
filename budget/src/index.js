@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
+import './firebase/firebase';
+
 import expenseReducer from './store/reducers/expenseReducer';
 import filterReducer from './store/reducers/filterReducer';
 
@@ -24,7 +26,6 @@ const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
-
 
 const app = (
   <Provider store={store}>

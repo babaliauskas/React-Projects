@@ -2,7 +2,10 @@ export {
   startAddExpense,
   removeExpense,
   editExpense,
-  addExpense
+  addExpense,
+  setExpenses,
+  startSetExpense,
+  startRemoveExpense
 } from './expenseActions';
 export {
   setTextFilter,

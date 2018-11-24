@@ -5,7 +5,6 @@ import ExpenseForm from '../../ExpenseForm/ExpenseForm';
 import * as actions from '../../../store/actions/index';
 
 const EditExpensePage = props => {
-  console.log(props);
   return (
     <div>
       <ExpenseForm
@@ -17,7 +16,7 @@ const EditExpensePage = props => {
       />
       <button
         onClick={() => {
-          props.onRemoveExpense({ id: props.expense.id });
+          props.onStartRemoveExpense({ id: props.expense.id });
           props.history.push('/');
         }}
       >
@@ -33,7 +32,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   onEditExpense: (id, expense) => dispatch(actions.editExpense(id, expense)),
-  onRemoveExpense: data => dispatch(actions.removeExpense(data))
+  onStartRemoveExpense: data => dispatch(actions.startRemoveExpense(data))
 });
 
 export default connect(

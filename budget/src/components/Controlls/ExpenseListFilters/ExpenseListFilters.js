@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
 
 import * as actions from '../../../store/actions/index';
+import 'react-dates/lib/css/_datepicker.css';
 
 const {
   sortByAmount,

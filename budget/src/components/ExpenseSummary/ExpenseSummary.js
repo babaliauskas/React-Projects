@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
-import selectExpenses from '../../store/selectors/expensesSelector'
-import selectExpensesTotal from '../../store/selectors/expenses-total'
+import selectExpenses from '../../store/selectors/expensesSelector';
+import selectExpensesTotal from '../../store/selectors/expenses-total';
 
 const ExpenseSummary = ({ expenseCount, expensesTotal }) => {
   const expenseWord = expenseCount === 1 ? 'expense' : 'expenses';
@@ -17,11 +17,11 @@ const ExpenseSummary = ({ expenseCount, expensesTotal }) => {
 };
 
 const mapStateToProps = state => {
-  const visibleExpenses = selectExpenses(state.expenses, state.filters)
+  const visibleExpenses = selectExpenses(state.expenses, state.filters);
   return {
     expenseCount: visibleExpenses.length,
     expensesTotal: selectExpensesTotal(visibleExpenses)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(ExpenseSummary);
