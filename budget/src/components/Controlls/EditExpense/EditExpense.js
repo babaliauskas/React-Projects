@@ -10,7 +10,7 @@ const EditExpensePage = props => {
       <ExpenseForm
         expense={props.expense}
         onSubmit={expense => {
-          props.onEditExpense(props.expense.id, expense);
+          props.onStartEditExpense(props.expense.id, expense);
           props.history.push('/');
         }}
       />
@@ -31,7 +31,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onEditExpense: (id, expense) => dispatch(actions.editExpense(id, expense)),
+  onStartEditExpense: (id, expense) =>
+    dispatch(actions.startEditExpense(id, expense)),
   onStartRemoveExpense: data => dispatch(actions.startRemoveExpense(data))
 });
 
