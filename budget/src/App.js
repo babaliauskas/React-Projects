@@ -1,17 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import AppRouter, { history } from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { startSetExpenses } from './actions/expenses';
+import { login, logout } from './actions/auth';
+import getVisibleExpenses from './selectors/expenses';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+import 'react-dates/lib/css/_datepicker.css';
+import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
 
-import AppRouter from './routers/AppRouter';
-
-import 'react-dates/initialize';
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <AppRouter />
-      </div>
-    );
+const store = configureStore();
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'));
+    hasRendered = true;
   }
-}
+};
 
-export default App;
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+    store.dispatch(startSetExpenses()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push('/');
+  }
+});
