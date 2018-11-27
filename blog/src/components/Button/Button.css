@@ -1,0 +1,13 @@
+.Button {
+  height: 30px;
+  min-width: 80px;
+
+}
+
+@media (min-width: 1000px) {
+  .Button {
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
