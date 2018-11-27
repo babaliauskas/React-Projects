@@ -43,6 +43,20 @@ const fetchPostsSuccess = (state, action) => ({
   loading: false
 });
 
+const removePostStart = (state, action) => ({
+  ...state,
+  loading: true
+});
+
+const removePostFail = (state, action) => ({
+  ...state,
+  loading: false
+});
+
+const removePostSuccess = (state, action) => {
+  return state.filter(({id}) => id !== action.id);
+};
+
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_POST_SUCCESS:
@@ -57,6 +71,12 @@ const postReducer = (state = initialState, action) => {
       return fetchPostFail(state, action);
     case actionTypes.FETCH_POSTS_SUCCESS:
       return fetchPostsSuccess(state, action);
+    case actionTypes.REMOVE_POST_START:
+      return removePostStart(state, action);
+    case actionTypes.REMOVE_POST_FAIL:
+      return removePostFail(state, action);
+    case actionTypes.REMOVE_POST_SUCCESS:
+      return removePostSuccess(state, action);
     default:
       return state;
   }

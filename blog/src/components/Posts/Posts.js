@@ -12,10 +12,6 @@ export class Posts extends Component {
     let posts = this.props.posts.map(post => {
       return (
         <Post key={post.id} {...post} />
-      //   <div key={post.id}>
-      //   <h4>{post.title}</h4>
-      //   <h6>{post.post}</h6>
-      // </div>
       )
     })
     return (

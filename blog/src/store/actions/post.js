@@ -30,6 +30,29 @@ export const addPost = postData => {
   };
 };
 
+export const removePostStart = () => ({
+  type: actionTypes.REMOVE_POST_START
+})
+
+export const removePostSuccess = ({id}) => ({
+  type: actionTypes.REMOVE_POST_SUCCESS,
+  id
+})
+
+export const removePostFail = error => ({
+  type: actionTypes.REMOVE_POST_FAIL,
+  error
+})
+
+export const removePost = ({id}) => {
+  return dispatch => {
+    dispatch(removePostStart())
+    axios.delete(`https://blog-a71f4.firebaseio.com/posts/${id}`).then(() => {
+      dispatch(removePostSuccess({id}))
+    }).catch(error => dispatch(removePostFail(error)))
+  }
+}
+
 export const fetchPostsSuccess = posts => ({
   type: actionTypes.FETCH_POSTS_SUCCESS,
   posts

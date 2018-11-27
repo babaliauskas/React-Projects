@@ -1,3 +1,35 @@
+.Post_Link {
+  text-decoration: none;
+  color: black;
+}
+
+.Posts {
+  border-bottom: 2px solid rgba(214, 218, 6, 0.836);
+  background-color: rgb(6, 95, 131);
+  padding: 10px;
+  position: relative;
+}
+
+.Title {
+  color: rgb(2, 197, 28);
+}
+
 .Post {
-  background-color: blue;
+  color: rgb(243, 94, 24);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.Dlt {
+  background-color: red;
+  border: none;
+  cursor: pointer;
+}
+
+.TitleDelete {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: -20px;
 }

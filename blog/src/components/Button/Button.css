@@ -1,7 +1,6 @@
 .Button {
   height: 30px;
   min-width: 80px;
-
 }
 
 @media (min-width: 1000px) {

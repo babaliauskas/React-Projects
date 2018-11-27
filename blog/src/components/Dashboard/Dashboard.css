@@ -1,6 +1,20 @@
 .Dashboard {
-  position: relative;
   text-align: center;
   width: 100%;
   height: auto;
+  background-color: rgb(6, 95, 131);
+  color: rgb(211, 208, 208)
+}
+
+.CreateDiv {
+  background-color: rgb(5, 206, 48);
+  padding: 20px;
+}
+
+.CreateBtn {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: rgb(7, 48, 7);
+  font-weight: bold;
+  text-transform: uppercase;
 }

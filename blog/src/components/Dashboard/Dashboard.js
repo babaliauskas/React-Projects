@@ -1,39 +1,21 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import Header from '../Header/Header'
-import classes from './Dashboard.css'
-import Post from '../Posts/Posts'
+import Header from '../Header/Header';
+import classes from './Dashboard.css';
+import Posts from '../Posts/Posts';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       
-    }
-  }
-  
   render() {
-    console.log(this.props.posts)
-    // let posts = this.props.posts.map(post => {
-    //   return (
-    //     <div key={post.title}>  </div>
-    //   )
-    // })
     return (
       <div className={classes.Dashboard}>
-          <Header />
-          <NavLink to='/create'> Create </NavLink>
-          <Post />
+        <Header />
+        <div className={classes.CreateDiv}>
+          <NavLink className={classes.CreateBtn} to="/create"> Create </NavLink>
         </div>
-    )
+        <Posts />
+      </div>
+    );
   }
 }
-
-const mapStateToProps = (state) => ({
-  posts: state
-})
-
-export default connect(mapStateToProps)(Dashboard)
+export default Dashboard;

@@ -5,7 +5,6 @@ import CreatePost from './components/Controlls/Create/Create';
 
 export default (
   <Switch>
-    <Route path="/edit/:id" component={CreatePost} />
     <Route path="/create" component={CreatePost} />
     <Route path="/" exact component={Dashboard} />
   </Switch>

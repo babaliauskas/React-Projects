@@ -10,8 +10,7 @@ class Create extends React.Component {
 
     this.state = {
       title: '',
-      post: '',
-      id: new Date()
+      post: ''
     };
   }
 

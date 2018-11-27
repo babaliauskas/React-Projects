@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classes from './Post.css'
+
 
 const Post = props => {
   console.log(props)
   return (
-    <Link to={`/edit/${props.id}`} className={classes.Post}>
-      <div>
-        <h4>{props.title}</h4>
-        <h6>{props.post}</h6>
+    
+      <div className={classes.Posts} >
+      <div className={classes.TitleDelete}>
+        <h3 className={classes.Title}>Title: {props.title}</h3>
+        <button className={classes.Dlt}>X</button>
       </div>
-    </Link>
+        <h4 className={classes.Post} >Post:<br/> {props.post}</h4>
+      </div>
   );
 };
+
 
 export default Post;
