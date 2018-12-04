@@ -7,7 +7,7 @@ import EventDetailedHeader from './EventDetailedHeader';
 import EventDetailedInfo from './EventDetailedInfo';
 import EventDetailedSidebar from './EventDetailedSidebar';
 
-const EventDetailedPage = ({ event }) => {
+const EventDetailedPage = ({event}) => {
   return (
     <Grid>
       <Grid.Column width={10}>

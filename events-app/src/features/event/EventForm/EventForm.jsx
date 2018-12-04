@@ -189,14 +189,14 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = {
+const actions = {
   createEvent,
   updateEvent
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(
   reduxForm({ form: 'eventForm', enableReinitialize: true, validate })(
     EventForm
