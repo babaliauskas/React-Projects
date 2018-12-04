@@ -38,7 +38,9 @@ class EventListItem extends Component {
         </Segment>
         <Segment clearing>
           <span> {event.description} </span>
+          <br />
           <Button
+            style={{ margin: '10px 5px' }}
             onClick={deleteEvent(event.id)}
             as="a"
             color="red"
@@ -46,6 +48,7 @@ class EventListItem extends Component {
             content="Delete"
           />
           <Button
+            style={{ margin: '10px 0' }}
             as={Link}
             to={`/event/${event.id}`}
             color="teal"
