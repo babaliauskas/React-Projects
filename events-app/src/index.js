@@ -10,11 +10,9 @@ import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 import { configureStore } from './app/store/configureStore';
 import ScrollToTop from './app/common/util/ScrollToTop';
-import { loadEvents } from './features/event/eventActions';
 
 // Makes changes without refreshing browser
 const store = configureStore();
-store.dispatch(loadEvents());
 
 const rootEl = document.getElementById('root');
 
