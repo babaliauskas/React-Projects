@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Grid, Icon, Button } from 'semantic-ui-react';
-import format from 'date-fns/format'
+import format from 'date-fns/format';
 
 import EventDetailedMap from './EventDetailedMap';
 
@@ -10,7 +10,7 @@ class EventDetailedInfo extends React.Component {
   };
 
   componentWillUnmount() {
-    this.setState({ showMap: false })
+    this.setState({ showMap: false });
   }
 
   showMapToogle = () => {
@@ -21,6 +21,11 @@ class EventDetailedInfo extends React.Component {
 
   render() {
     const { event } = this.props;
+
+    let eventDate;
+    if (event.date) {
+      eventDate = event.date.toDate();
+    }
     return (
       <Segment.Group>
         <Segment attached="top">
@@ -39,7 +44,10 @@ class EventDetailedInfo extends React.Component {
               <Icon name="calendar" size="large" color="teal" />
             </Grid.Column>
             <Grid.Column width={15}>
-              <span>{format(event.date, 'dddd Do MMMM')} at {format(event.date, 'h:mm A')}</span>
+              <span>
+                {format(eventDate, 'dddd Do MMMM')} at{' '}
+                {format(eventDate, 'h:mm A')}
+              </span>
             </Grid.Column>
           </Grid>
         </Segment>
@@ -56,7 +64,7 @@ class EventDetailedInfo extends React.Component {
                 onClick={this.showMapToogle}
                 color="teal"
                 size="tiny"
-                content={this.state.showMap ? 'Hide Map' : 'Show Map' }
+                content={this.state.showMap ? 'Hide Map' : 'Show Map'}
               />
             </Grid.Column>
           </Grid>
