@@ -8,11 +8,7 @@ import {
 import { fetchSampleData } from '../../app/data/mockApi';
 import { createNewEvent } from '../../app/common/util/helpers.js';
 import moment from 'moment';
-
-export const fetchEvents = events => ({
-  type: FETCH_EVENT,
-  payload: events
-});
+import firebase from '../../app/config/firebase';
 
 export const createEvent = event => {
   return async (dispatch, getState, { getFirestore }) => {
@@ -69,20 +65,49 @@ export const cancelToggle = (cancelled, eventId) => {
   };
 };
 
-export const deleteEvent = eventId => ({
-  type: DELETE_EVENT,
-  payload: {
-    eventId
-  }
-});
+export const getEventsForDashboard = lastEvent => {
+  return async (dispatch, getState) => {
+    let today = new Date(Date.now());
+    const firestore = firebase.firestore();
+    const eventsRef = firestore.collection('events');
 
-export const loadEvents = () => {
-  return async dispatch => {
     try {
       dispatch(asyncActionsStart());
-      let events = await fetchSampleData();
-      dispatch(fetchEvents(events));
+      let startAfter =
+        lastEvent &&
+        (await firestore
+          .collection('events')
+          .doc(lastEvent.id)
+          .get());
+      let query;
+
+      lastEvent
+        ? (query = eventsRef
+            .where('date', '>=', today)
+            .orderBy('date')
+            .startAfter(startAfter)
+            .limit(2))
+        : (query = eventsRef
+            .where('date', '>=', today)
+            .orderBy('date')
+            .limit(2));
+
+      let querySnap = await query.get();
+
+      if (querySnap.docs.length === 0) {
+        dispatch(asyncActionsFinish());
+        return querySnap;
+      }
+
+      let events = [];
+
+      for (let i = 0; i < querySnap.docs.length; i++) {
+        let evt = { ...querySnap.docs[i].data(), id: querySnap.docs[i].id };
+        events.push(evt);
+      }
+      dispatch({ type: FETCH_EVENT, payload: { events } });
       dispatch(asyncActionsFinish());
+      return querySnap;
     } catch (error) {
       console.log(error);
       dispatch(asyncActionsError());
