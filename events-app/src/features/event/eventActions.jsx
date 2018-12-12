@@ -1,5 +1,5 @@
 import { toastr } from 'react-redux-toastr';
-import { DELETE_EVENT, FETCH_EVENT } from './eventConstants';
+import { FETCH_EVENT } from './eventConstants';
 import {
   asyncActionsStart,
   asyncActionsFinish,
