@@ -5,7 +5,6 @@ import {
   asyncActionsFinish,
   asyncActionsError
 } from '../async/asyncActions';
-import { fetchSampleData } from '../../app/data/mockApi';
 import { createNewEvent } from '../../app/common/util/helpers.js';
 import moment from 'moment';
 import firebase from '../../app/config/firebase';
@@ -111,6 +110,28 @@ export const getEventsForDashboard = lastEvent => {
     } catch (error) {
       console.log(error);
       dispatch(asyncActionsError());
+    }
+  };
+};
+
+export const addEventComment = (eventId, values, parentId) => {
+  return async (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    const profile = getState().firebase.profile;
+    const user = firebase.auth().currentUser;
+    let newComment = {
+      displayName: profile.displayName,
+      parentId: parentId,
+      photoURL: profile.photoURL || '/assets/user.png',
+      uid: user.uid,
+      text: values.comment,
+      date: Date.now()
+    };
+    try {
+      await firebase.push(`event_chat/${eventId}`, newComment);
+    } catch (error) {
+      console.log(error);
+      toastr.error('Oops', 'Problem adding comment');
     }
   };
 };
