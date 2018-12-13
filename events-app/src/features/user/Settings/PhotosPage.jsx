@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 import {
   Image,
   Segment,
@@ -9,14 +12,35 @@ import {
   Card,
   Icon
 } from 'semantic-ui-react';
+import { toastr } from 'react-redux-toastr';
 import Dropzone from 'react-dropzone';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
-import { connect } from 'react-redux';
-import { toastr } from 'react-redux-toastr';
 import { uploadProfileImage, deletePhoto, setMainPhoto } from '../userActions';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+
+const query = ({ auth }) => {
+  return [
+    {
+      collection: 'users',
+      doc: auth.uid,
+      subcollections: [{ collection: 'photos' }],
+      storeAs: 'photos'
+    }
+  ];
+};
+
+const actions = {
+  uploadProfileImage,
+  deletePhoto,
+  setMainPhoto
+};
+
+const mapState = state => ({
+  auth: state.firebase.auth,
+  profile: state.firebase.profile,
+  photos: state.firestore.ordered.photos,
+  loading: state.async.loading
+});
 
 class PhotosPage extends Component {
   state = {
@@ -26,35 +50,6 @@ class PhotosPage extends Component {
     image: {}
   };
 
-  uploadImage = async () => {
-    try {
-      await this.props.uploadProfileImage(
-        this.state.image,
-        this.state.fileName
-      );
-      this.cancelCrop();
-      toastr.success('Success!', 'Photo has been uploaded');
-    } catch (error) {
-      toastr.error('Oops', error.message);
-    }
-  };
-
-  handlePhotoDelete = photo => async () => {
-    try {
-      this.props.deletePhoto(photo);
-    } catch (error) {
-      toastr.error('Oops', error.message);
-    }
-  };
-
-  handleSetMainPhoto = photo => async () => {
-    try {
-      await this.props.setMainPhoto(photo);
-    } catch (error) {
-      toastr.error('Oops', error.message);
-    }
-  };
-
   cancelCrop = () => {
     this.setState({
       files: [],
@@ -62,12 +57,34 @@ class PhotosPage extends Component {
     });
   };
 
-  onDrop = files => {
-    this.setState({
-      files,
-      fileName: files[0].name
-    });
+  uploadImage = async () => {
+    try {
+      await this.props.uploadProfileImage(
+        this.state.image,
+        this.state.fileName
+      );
+      this.cancelCrop();
+      toastr.success('Success', 'Photo has been uploaded');
+    } catch (error) {
+      toastr.error('Oops', error.message);
+    }
   };
+
+  handlePhotoDelete = (photo) => async () => {
+    try {
+      this.props.deletePhoto(photo);
+    } catch (error) {
+      toastr.error('Oops', error.message)
+    }
+  }
+
+  handleSetMainPhoto = (photo) => async () => {
+    try {
+      await this.props.setMainPhoto(photo)
+    } catch (error) {
+      toastr.error('Oops', error.message)
+    }
+  }
 
   cropImage = () => {
     if (typeof this.refs.cropper.getCroppedCanvas() === 'undefined') {
@@ -83,13 +100,20 @@ class PhotosPage extends Component {
     }, 'image/jpeg');
   };
 
+  onDrop = files => {
+    this.setState({
+      files,
+      fileName: files[0].name
+    });
+  };
+
   render() {
     const { photos, profile, loading } = this.props;
     let filteredPhotos;
     if (photos) {
       filteredPhotos = photos.filter(photo => {
-        return photo.url !== profile.photoURL;
-      });
+        return photo.url !== profile.photoURL
+      })
     }
     return (
       <Segment>
@@ -101,7 +125,7 @@ class PhotosPage extends Component {
             <Dropzone onDrop={this.onDrop} multiple={false}>
               <div style={{ paddingTop: '30px', textAlign: 'center' }}>
                 <Icon name="upload" size="huge" />
-                <Header content="Drop image here or click to add" />
+                <Header content="Drop image here or click to upload" />
               </div>
             </Dropzone>
           </Grid.Column>
@@ -166,20 +190,10 @@ class PhotosPage extends Component {
               <Card key={photo.id}>
                 <Image src={photo.url} />
                 <div className="ui two buttons">
-                  <Button
-                    loading={loading}
-                    onClick={this.handleSetMainPhoto(photo)}
-                    basic
-                    color="green"
-                  >
+                  <Button loading={loading} onClick={this.handleSetMainPhoto(photo)} basic color="green">
                     Main
                   </Button>
-                  <Button
-                    onClick={this.handlePhotoDelete(photo)}
-                    basic
-                    icon="trash"
-                    color="red"
-                  />
+                  <Button onClick={this.handlePhotoDelete(photo)} basic icon="trash" color="red" />
                 </div>
               </Card>
             ))}
@@ -189,34 +203,7 @@ class PhotosPage extends Component {
   }
 }
 
-const query = ({ auth }) => {
-  return [
-    {
-      collection: 'users',
-      doc: auth.uid,
-      subcollections: [{ collection: 'photos' }],
-      storeAs: 'photos'
-    }
-  ];
-};
-
-const actions = {
-  uploadProfileImage,
-  deletePhoto,
-  setMainPhoto
-};
-
-const mapStateToProps = state => ({
-  auth: state.firebase.auth,
-  profile: state.firebase.profile,
-  photos: state.firestore.ordered.photos,
-  loading: state.async.loading
-});
-
 export default compose(
-  connect(
-    mapStateToProps,
-    actions
-  ),
+  connect(mapState, actions),
   firestoreConnect(auth => query(auth))
 )(PhotosPage);

@@ -22,25 +22,20 @@ const UserDetailedDescription = ({ profile }) => {
             <p>
               Member Since: <strong>{createdAt}</strong>
             </p>
-            <p>
-              Description of user: <strong>{profile.description}</strong>{' '}
-            </p>
+            <p>{profile.description}</p>
           </Grid.Column>
           <Grid.Column width={6}>
             <Header icon="heart outline" content="Interests" />
-            {profile.interests ? (
-              <List>
-                {profile.interests &&
-                  profile.interests.map((interest, index) => (
-                    <Item key={index}>
-                      <Icon name="heart" />
-                      <Item.Content>{interest}</Item.Content>
-                    </Item>
-                  ))}
-              </List>
-            ) : (
-              <p>No interests </p>
-            )}
+            {profile.interests ?
+            <List>
+              {profile.interests &&
+                profile.interests.map((interest, index) => (
+                  <Item key={index}>
+                    <Icon name="heart" />
+                    <Item.Content>{interest}</Item.Content>
+                  </Item>
+                ))}
+            </List> : <p>No interests</p>}
           </Grid.Column>
         </Grid>
       </Segment>

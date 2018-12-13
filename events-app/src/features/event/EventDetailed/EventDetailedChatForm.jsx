@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
-
 import TextArea from '../../../app/common/form/TextArea';
 
 class EventDetailedChatForm extends Component {
@@ -10,14 +9,14 @@ class EventDetailedChatForm extends Component {
     addEventComment(eventId, values, parentId);
     reset();
     if (parentId !== 0) {
-      closeForm();
+        closeForm();
     }
   };
 
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit(this.handleCommentSubmit)}>
-        <Field name="comment" type="text" component={TextArea} rows={1} />
+        <Field name="comment" type="text" component={TextArea} rows={2} />
         <Button content="Add Reply" labelPosition="left" icon="edit" primary />
       </Form>
     );

@@ -10,32 +10,20 @@ class EventActivityItem extends Component {
         return (
           <div>
             New Event!{' '}
-            <Feed.User
-              as={Link}
-              to={{ pathname: '/profile/' + activity.hostUid }}
-            >
+            <Feed.User as={Link} to={{ pathname: '/profile/' + activity.hostUid }}>
               {activity.hostedBy}
             </Feed.User>{' '}
-            is hosting{' '}
-            <Link to={{ pathname: '/event/' + activity.eventId }}>
-              {activity.title}
-            </Link>
+            is hosting <Link to={{ pathname: '/event/' + activity.eventId }}>{activity.title}</Link>
           </div>
         );
       case 'cancelledEvent':
         return (
           <div>
             Event Cancelled!{' '}
-            <Feed.User
-              as={Link}
-              to={{ pathname: '/profile/' + activity.hostUid }}
-            >
+            <Feed.User as={Link} to={{ pathname: '/profile/' + activity.hostUid }}>
               {activity.hostedBy}
             </Feed.User>{' '}
-            has cancelled{' '}
-            <Link to={{ pathname: '/event/' + activity.eventId }}>
-              {activity.title}
-            </Link>
+            has cancelled <Link to={{ pathname: '/event/' + activity.eventId }}>{activity.title}</Link>
           </div>
         );
       default:
@@ -54,9 +42,7 @@ class EventActivityItem extends Component {
         <Feed.Content>
           <Feed.Summary>{this.renderSummary(activity)}</Feed.Summary>
           <Feed.Meta>
-            <Feed.Date>
-              {distanceInWordsToNow(activity.timestamp.toDate())} ago
-            </Feed.Date>
+            <Feed.Date>{distanceInWordsToNow(activity.timestamp.toDate())} ago</Feed.Date>
           </Feed.Meta>
         </Feed.Content>
       </Feed.Event>

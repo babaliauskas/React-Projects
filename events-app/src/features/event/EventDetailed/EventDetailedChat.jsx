@@ -1,42 +1,35 @@
-import React from 'react';
-import { Segment, Comment, Header } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Segment, Header, Comment } from 'semantic-ui-react';
+import EventDetailedChatForm from './EventDetailedChatForm';
 import { Link } from 'react-router-dom';
 import distanceInWords from 'date-fns/distance_in_words';
 
-import EventDetailedChatForm from './EventDetailedChatForm';
-
-class EventDetailedChat extends React.Component {
+class EventDetailedChat extends Component {
   state = {
     showReplyForm: false,
-    selecetedCommentId: null
+    selectedCommentId: null
   };
 
   handleOpenReplyForm = id => () => {
     this.setState({
       showReplyForm: true,
-      selecetedCommentId: id
+      selectedCommentId: id
     });
   };
 
   handleCloseReplyForm = () => {
     this.setState({
-      selecetedCommentId: null,
+      selectedCommentId: null,
       showReplyForm: false
     });
   };
 
   render() {
     const { addEventComment, eventId, eventChat } = this.props;
-    const { showReplyForm, selecetedCommentId } = this.state;
+    const { showReplyForm, selectedCommentId } = this.state;
     return (
       <div>
-        <Segment
-          textAlign="center"
-          attached="top"
-          inverted
-          color="teal"
-          style={{ border: 'none' }}
-        >
+        <Segment textAlign="center" attached="top" inverted color="teal" style={{ border: 'none' }}>
           <Header>Chat about this event</Header>
         </Segment>
 
@@ -45,9 +38,7 @@ class EventDetailedChat extends React.Component {
             {eventChat &&
               eventChat.map(comment => (
                 <Comment key={comment.id}>
-                  <Comment.Avatar
-                    src={comment.photoURL || '/assets/user.png'}
-                  />
+                  <Comment.Avatar src={comment.photoURL || '/assets/user.png'} />
                   <Comment.Content>
                     <Comment.Author as={Link} to={`/profile/${comment.uid}`}>
                       {comment.displayName}
@@ -57,55 +48,41 @@ class EventDetailedChat extends React.Component {
                     </Comment.Metadata>
                     <Comment.Text>{comment.text}</Comment.Text>
                     <Comment.Actions>
-                      <Comment.Action
-                        onClick={this.handleOpenReplyForm(comment.id)}
-                      >
-                        Reply
-                      </Comment.Action>
-                      {showReplyForm && selecetedCommentId === comment.id && (
-                        <EventDetailedChatForm
-                          addEventComment={addEventComment}
-                          eventId={eventId}
-                          form={`reply_${comment.id}`}
-                          closeForm={this.handleCloseReplyForm}
-                          parentId={comment.id}
-                        />
-                      )}
+                      <Comment.Action onClick={this.handleOpenReplyForm(comment.id)}>Reply</Comment.Action>
+                      {showReplyForm &&
+                        selectedCommentId === comment.id && (
+                          <EventDetailedChatForm
+                            form={`reply_${comment.id}`}
+                            addEventComment={addEventComment}
+                            eventId={eventId}
+                            closeForm={this.handleCloseReplyForm}
+                            parentId={comment.id}
+                          />
+                        )}
                     </Comment.Actions>
                   </Comment.Content>
 
                   {comment.childNodes &&
                     comment.childNodes.map(child => (
-                      <Comment.Group key={child.id}>
-                        <Comment>
-                          <Comment.Avatar
-                            src={child.photoURL || '/assets/user.png'}
-                          />
+                      <Comment.Group>
+                        <Comment key={child.id}>
+                          <Comment.Avatar src={child.photoURL || '/assets/user.png'} />
                           <Comment.Content>
-                            <Comment.Author
-                              as={Link}
-                              to={`/profile/${child.uid}`}
-                            >
+                            <Comment.Author as={Link} to={`/profile/${child.uid}`}>
                               {child.displayName}
                             </Comment.Author>
                             <Comment.Metadata>
-                              <div>
-                                {distanceInWords(child.date, Date.now())} ago
-                              </div>
+                              <div>{distanceInWords(child.date, Date.now())} ago</div>
                             </Comment.Metadata>
                             <Comment.Text>{child.text}</Comment.Text>
                             <Comment.Actions>
-                              <Comment.Action
-                                onClick={this.handleOpenReplyForm(child.id)}
-                              >
-                                Reply
-                              </Comment.Action>
+                              <Comment.Action onClick={this.handleOpenReplyForm(child.id)}>Reply</Comment.Action>
                               {showReplyForm &&
-                                selecetedCommentId === child.id && (
+                                selectedCommentId === child.id && (
                                   <EventDetailedChatForm
+                                    form={`reply_${child.id}`}
                                     addEventComment={addEventComment}
                                     eventId={eventId}
-                                    form={`reply_${child.id}`}
                                     closeForm={this.handleCloseReplyForm}
                                     parentId={child.parentId}
                                   />
@@ -118,12 +95,7 @@ class EventDetailedChat extends React.Component {
                 </Comment>
               ))}
           </Comment.Group>
-          <EventDetailedChatForm
-            addEventComment={addEventComment}
-            eventId={eventId}
-            form={'newComment'}
-            parentId={0}
-          />
+          <EventDetailedChatForm parentId={0} form={'newComment'} addEventComment={addEventComment} eventId={eventId} />
         </Segment>
       </div>
     );

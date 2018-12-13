@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Segment, Form, Header, Divider, Button } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
-
 import DateInput from '../../../app/common/form/DateInput';
 import PlaceInput from '../../../app/common/form/PlaceInput';
 import TextInput from '../../../app/common/form/TextInput';
-import RadionInput from '../../../app/common/form/RadioInput';
+import RadioInput from '../../../app/common/form/RadioInput';
 
 class BasicPage extends Component {
   render() {
@@ -29,34 +28,34 @@ class BasicPage extends Component {
               type="radio"
               value="male"
               label="Male"
-              component={RadionInput}
+              component={RadioInput}
             />
             <Field
               name="gender"
               type="radio"
               value="female"
               label="Female"
-              component={RadionInput}
+              component={RadioInput}
             />
           </Form.Group>
           <Field
             width={8}
             name="dateOfBirth"
             component={DateInput}
-            placeholder="Date of Birth"
-            dateFormat="YYYY-MM-DD"
+            dateFormat='YYYY-MM-DD'
             showYearDropdown={true}
             showMonthDropdown={true}
-            dropdownMode="select"
+            dropdownMode='select'
             maxDate={moment().subtract(18, 'years')}
+            placeholder="Date of Birth"
           />
           <Field
-            width={8}
             name="city"
             placeholder="Home Town"
             options={{ types: ['(cities)'] }}
             label="Female"
             component={PlaceInput}
+            width={8}
           />
           <Divider />
           <Button
@@ -71,8 +70,6 @@ class BasicPage extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'userProfile',
-  enableReinitialize: true,
-  destroyOnUnmount: false
-})(BasicPage);
+export default reduxForm({ form: 'userProfile', enableReinitialize: true, destroyOnUnmount: false })(
+  BasicPage
+);
