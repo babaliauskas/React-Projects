@@ -33,7 +33,8 @@ class EventDetailedPage extends React.Component {
       goingToEvent,
       cancelGoingToEvent,
       addEventComment,
-      eventChat
+      eventChat,
+      loading
     } = this.props;
     const attendees =
       event && event.attendees && objectToArray(event.attendees);
@@ -44,6 +45,7 @@ class EventDetailedPage extends React.Component {
       <Grid>
         <Grid.Column width={10}>
           <EventDetailedHeader
+            loading={loading}
             event={event}
             isHost={isHost}
             isGoing={isGoing}
@@ -73,6 +75,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     event,
+    loading: state.async.loading,
     auth: state.firebase.auth,
     eventChat:
       !isEmpty(state.firebase.data.event_chat) &&

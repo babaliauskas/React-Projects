@@ -1,4 +1,4 @@
-export const UserDetailedQuery = ({ auth, userUid }) => {
+export const UserDetailedQuery = ({ auth, userUid, match }) => {
   if (userUid !== null) {
     return [
       {
@@ -11,6 +11,12 @@ export const UserDetailedQuery = ({ auth, userUid }) => {
         doc: userUid,
         subcollections: [{ collection: 'photos' }],
         storeAs: 'photos'
+      },
+      {
+        collection: 'users',
+        doc: auth.uid,
+        subcolections: [{ collection: 'following', doc: match.params.id }],
+        storeAs: 'following'
       }
     ];
   } else {
