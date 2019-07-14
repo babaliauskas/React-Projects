@@ -63,7 +63,7 @@ class EventDashboard extends Component {
     }
   };
 
-  handleContextRef = contextRef => this.setState({contextRef})
+  handleContextRef = contextRef => this.setState({ contextRef })
 
   render() {
     const { loading, activities } = this.props;
@@ -74,12 +74,12 @@ class EventDashboard extends Component {
       <Grid>
         <Grid.Column width={10}>
           <div ref={this.handleContextRef}>
-          <EventList
-            loading={loading}
-            moreEvents={moreEvents}
-            events={loadedEvents}
-            getNextEvents={this.getNextEvents}
-          />
+            <EventList
+              loading={loading}
+              moreEvents={moreEvents}
+              events={loadedEvents}
+              getNextEvents={this.getNextEvents}
+            />
           </div>
 
         </Grid.Column>
@@ -87,7 +87,7 @@ class EventDashboard extends Component {
           <EventActivity activities={activities} contextRef={this.state.contextRef} />
         </Grid.Column>
         <Grid.Column width={10}>
-          <Loader active={loading}/>
+          <Loader active={loading} />
         </Grid.Column>
       </Grid>
     );

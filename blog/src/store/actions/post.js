@@ -34,7 +34,7 @@ export const removePostStart = () => ({
   type: actionTypes.REMOVE_POST_START
 })
 
-export const removePostSuccess = ({id}) => ({
+export const removePostSuccess = ({ id }) => ({
   type: actionTypes.REMOVE_POST_SUCCESS,
   id
 })
@@ -44,11 +44,11 @@ export const removePostFail = error => ({
   error
 })
 
-export const removePost = ({id}) => {
+export const removePost = ({ id }) => {
   return dispatch => {
     dispatch(removePostStart())
     axios.delete(`https://blog-a71f4.firebaseio.com/posts/${id}`).then(() => {
-      dispatch(removePostSuccess({id}))
+      dispatch(removePostSuccess({ id }))
     }).catch(error => dispatch(removePostFail(error)))
   }
 }
