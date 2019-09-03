@@ -1,10 +1,13 @@
 import React from 'react';
-function App() {
-  return (
-    <div className="App">
+import routes from './routes';
+import Navbar from './components/navbar/Navbar';
+import './app.css';
 
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    {routes}
+    <Navbar />
+  </div>
+);
 
 export default App;

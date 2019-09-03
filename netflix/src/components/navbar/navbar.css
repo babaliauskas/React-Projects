@@ -1,0 +1,30 @@
+.navbar {
+    width: 100vw;
+    position: fixed;
+    background: linear-gradient( rgba(0, 0, 0, 0.507), rgba(0, 0, 0, 0.007) );
+    top: 0
+}
+
+.navbar nav {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.navbar nav a {
+    margin: 0 7px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar img {
+    width: 100px;
+}

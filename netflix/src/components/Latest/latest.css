@@ -1,0 +1,12 @@
+.latest {
+    width: 100%;
+    height: 600px;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.287), rgba(0, 0, 0, 0.233) ), url('https://theplaylist.net/wp-content/uploads/2019/04/hobbs-and-shaw-fast-and-furious-1200x520.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* .latest img {
+    width: 100%;
+    border-image-slice: fill;
+} */
