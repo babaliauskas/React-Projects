@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useFetch = () => {
-    const [state, setState] = useState({ movies: [] });
+export const getMovies = () => {
+    const [movies, setState] = useState({ data: [] })
 
     useEffect(() => {
         let list = []
@@ -11,10 +11,9 @@ export const useFetch = () => {
         axios.get(url)
             .then(res => {
                 res.data.results.forEach(movie => list.push(movie))
-                setState({ movies: list })
+                setState({ data: list })
             })
         // }
     }, [])
-
-    return state
+    return movies
 }
