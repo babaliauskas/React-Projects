@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './navbar.css';
 import logo from '../../assets/netflix.png';
 
@@ -8,19 +8,19 @@ const Navbar = () => {
         <div className='navbar'>
             <nav>
                 <div className='nav-first'>
-                    <Link to='/'><img src={logo} alt="" /></Link>
-                    <Link to='/'>Home</Link>
-                    <Link to='/'>Tv Shows</Link>
-                    <Link to='/'>Movies</Link>
-                    <Link to='/'>Latest</Link>
-                    <Link to='/'>My List</Link>
+                    <NavLink to='/'><img src={logo} alt="logo" /></NavLink>
+                    <NavLink activeClassName='nav-active' exact to='/'>Home</NavLink>
+                    <NavLink activeClassName='nav-active' to='/tv-shows'>Tv Shows</NavLink>
+                    <NavLink activeClassName='nav-active' to='/movies'>Movies</NavLink>
+                    <NavLink activeClassName='nav-active' to='/latest'>Latest</NavLink>
+                    <NavLink activeClassName='nav-active' to='/my-list'>My List</NavLink>
                 </div>
                 <div className='nav-second'>
-                    <Link to='/'>Search</Link>
-                    <Link to='/'>Kids</Link>
-                    <Link to='/'>DVD</Link>
-                    <Link to='/'>Bell</Link>
-                    <Link to='/'>Info</Link>
+                    <NavLink activeClassName='nav-active' to='/search'>Search</NavLink>
+                    <NavLink activeClassName='nav-active' to='/kids'>Kids</NavLink>
+                    <NavLink activeClassName='nav-active' to='/dvd'>DVD</NavLink>
+                    <NavLink activeClassName='nav-active' to='/notification'>Bell</NavLink>
+                    <NavLink activeClassName='nav-active' to='/info'>Info</NavLink>
                 </div>
             </nav>
         </div>

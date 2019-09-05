@@ -18,11 +18,19 @@
     justify-content: space-between
 }
 
+.navbar nav .nav-active{
+    color: white;
+}
+
 .navbar nav a {
     margin: 0 7px;
     text-decoration: none;
-    color: white;
+    color: rgb(221, 221, 221);
     font-weight: bold;
+}
+
+.navbar nav a:hover{
+    color: rgb(179, 179, 179)
 }
 
 .navbar img {
