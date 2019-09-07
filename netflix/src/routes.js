@@ -7,5 +7,6 @@ export default (
     <Switch>
         <Route exact path='/' component={Dashboard} />
         <Route exact path='/movie/:id' component={Movie} />
+        <Route exact path='/movie/:id' component={Movie} />
     </Switch>
 )
