@@ -8,7 +8,6 @@ import './latest.css';
 
 const Latest = () => {
     const latest = useLatest()
-    console.log('lukas: ', latest)
 
     let overview = 'Loading...';
     if (latest) overview = latest.state.overview

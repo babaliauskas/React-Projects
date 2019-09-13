@@ -1,3 +1,68 @@
 .movies {
+    width: 100%;
     color: white;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.movies .about-movie {
+    width: 180px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 5px 5px;
+    transition: .5s;
+    overflow: hidden;
+    position: relative;
+}
+
+.movies .about-darken {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.644);
+    opacity: 0;
+    transition: .5s;
+}
+.movies .about-movie:hover,
+.movies .about-darken:hover {
+    opacity: 1;
+    z-index: 1;
+}
+
+
+.movies .about-menu {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.movies .icon {
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 5px;
+    color: rgb(195, 195, 195);
+    transition: .5s;
+}
+
+.movies .icon:hover {
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.movies .about-title {
+    position: absolute;
+    width: 150px;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
 }
